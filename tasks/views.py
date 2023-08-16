@@ -1,3 +1,9 @@
 from django.shortcuts import render
 
-# Create your views here.
+from .models import Tasks
+
+from rest_framework.generics import ListAPIView
+
+class Tasks_List(ListAPIView):
+    model = Tasks
+    fields = ['title']
