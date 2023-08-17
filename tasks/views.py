@@ -14,8 +14,38 @@ class Tasks_List(APIView):
         return Response({'tasks':Task_Serializer(tasks, many=True).data})
     
     def post(self, request):
-        post_new_task = Task.objects.create(
-            title=request.data['title'],
-            description=request.data['description'],
-        )
-        return Response({'post': Task_Serializer(post_new_task).data})
+        #exceptions
+        serializer = Task_Serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        
+        return Response({'post': serializer.data})
+
+    def put(self, request, *args, **kwargs):
+        pk = kwargs.get('pk', None)
+        if not pk:
+            return Response({'error':'PUT not allowed'})
+        try:
+            instance = Task.objects.get(pk=pk)
+        except:
+            return Response({'error':'object not found'})
+        
+        serializer = Task_Serializer(data=request.data, instance=instance)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        
+        return Response({'post':serializer.data}) 
+    
+    def delete(self, request, *args, **kwargs):
+        pk = kwargs.get('pk', None)
+        if not pk:
+            return Response({'error':'DELETE not allowed'})
+        try:
+            instance = Task.objects.get(pk=pk)
+        except:
+            return Response({'Error':'task not found'})
+        
+        instance.delete()
+        
+        
+        return Response({'post':'delete item' + str(pk)})
