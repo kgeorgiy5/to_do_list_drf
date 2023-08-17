@@ -20,14 +20,14 @@ class Task_Serializer(serializers.Serializer):
         return instance
     
     
-    # class Meta:
-    #     model = Task
-    #     fields = [
-    #         'title',
-    #         # 'description',
-    #         'is_completed',
-    #         'time_created'
-    #     ]
+    class Meta:
+        model = Task
+        fields = [
+            'title',
+            'description',
+            'is_completed',
+            'time_created'
+        ]
     
 # def encode():
 #     model = TaskModel('test3', '333333333', True, 10)
