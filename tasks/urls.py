@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import Tasks_List, Tasks_Create, Tasks_Update, Tasks_Delete
+from .views import Tasks_List, Tasks_Create, Tasks_Update, Tasks_Delete, Tasks_Complete
 
 urlpatterns = [
     #get
@@ -11,4 +11,6 @@ urlpatterns = [
     path('api/tasks-create/', Tasks_Create.as_view(), name='tasks-create'),
     #delete
     path('api/tasks-delete/<int:pk>/', Tasks_Delete.as_view(), name='tasks-delete'),
+    #patch
+    path('api/tasks-complete/<int:pk>/', Tasks_Complete.as_view(), name='tasks-complete')
 ]
