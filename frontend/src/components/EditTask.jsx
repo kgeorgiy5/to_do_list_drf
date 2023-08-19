@@ -7,6 +7,9 @@ import { Stack, IconButton, Fab } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
 import { useRef } from "react";
+import axios from "axios";
+
+
 export default function CreateTask({ open, setOpen, task }) {
 
   const titleInputRef = useRef(null);
@@ -20,7 +23,16 @@ export default function CreateTask({ open, setOpen, task }) {
     const editedDescription = descriptionInputRef.current.value;
 
     const updatedTask = { ...task, title: editedTitle, description: editedDescription };
-    console.log(editedTitle, editedDescription)
+
+    axios.put(`http://localhost:8000/api/tasks-update/${task.id}`, 
+    {    
+             title: editedTitle,
+             description: editedDescription,
+             is_complete: false  
+    })
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+
     setOpen(false);
   };
 

@@ -9,7 +9,7 @@ import DoneIcon from "@mui/icons-material/Done";
 import axios from "axios";
 import { useRef } from "react";
 
-export default function CreateTask({ open, setOpen, tasks }) {
+export default function CreateTask({ open, setOpen, setTasks }) {
   const style = {
     position: "absolute",
     top: "50%",
@@ -34,9 +34,11 @@ export default function CreateTask({ open, setOpen, tasks }) {
 
     const createdTask = {title: editedTitle, description: editedDescription };
     axios.post("http://localhost:8000/api/tasks-create/", createdTask)
-    .then(res => console.log(res))
+    .then(res =>  setTasks(tasks => [...tasks, res.data]))
     .catch(err => console.log(err))
     setOpen(false)
+
+
 
   }
 

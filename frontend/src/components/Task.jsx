@@ -32,7 +32,7 @@ export default function Task({ task, expanded, handleChange, setTasks, setOpenEd
           <Typography sx={{ color: 'text.secondary' }}>Created at {formatDateTime(task.time_created)}</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
+          <Typography component="span">
             <Stack direction="row" justifyContent="space-between">{task.description}
               <Stack direction="row">
                 <IconButton onClick={() => {setOpenEditTask(true); setEditTask(task)}}><EditIcon/></IconButton>

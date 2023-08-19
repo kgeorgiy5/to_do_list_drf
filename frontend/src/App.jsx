@@ -29,7 +29,7 @@ function App() {
   return (
     <>
     <EditTask task={editTask} open={openEditTask} setOpen={setOpenEditTask}/>
-    <CreateTask open={openCreateTask} setOpen={setOpenCreateTask}/>
+    <CreateTask open={openCreateTask} setOpen={setOpenCreateTask} setTasks={setTasks}/>
     <Stack direction="column">
       <Typography variant="h3" textAlign="center" sx={{mt:5}}>
         Tasks
