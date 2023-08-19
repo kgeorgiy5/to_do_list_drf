@@ -35,7 +35,7 @@ export default function Task({ task, expanded, handleChange, setTasks }){
           <Typography>
             <Stack direction="row" justifyContent="space-between">{task.description}
             <Stack direction="row">
-                <IconButton><EditIcon/></IconButton>
+                <IconButton><EditIcon /></IconButton>
                 <IconButton onClick={() => deleteTask(task.id)}><DeleteIcon/></IconButton>
             </Stack>
             </Stack>
