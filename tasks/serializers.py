@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from rest_framework.renderers import JSONRenderer
 
+import datetime
+
 from .models import Task
 
 class Task_Serializer(serializers.ModelSerializer):
@@ -10,7 +12,10 @@ class Task_Serializer(serializers.ModelSerializer):
         instance.title = validated_data.get('title', instance.title)
         instance.description = validated_data.get('description', instance.description)
         instance.is_completed = validated_data.get('is_completed', instance.is_completed)
-        instance.time_created = instance.time_created
+        instance.edited = True
+        instance.time_edited = datetime.datetime.now()
+        
+        instance.save()
         
         return instance
     
@@ -22,7 +27,8 @@ class Task_Serializer(serializers.ModelSerializer):
             'title',
             'description',
             'is_completed',
-            'time_created'
+            'edited',
+            'time_edited',
         ]
     
 # def encode():
