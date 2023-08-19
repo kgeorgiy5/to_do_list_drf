@@ -35,7 +35,7 @@ export default function Task({ task, expanded, handleChange, setTasks, setOpenEd
           <Typography>
             <Stack direction="row" justifyContent="space-between">{task.description}
               <Stack direction="row">
-                <IconButton><EditIcon onClick={() => {setOpenEditTask(true); setEditTask(task)}}/></IconButton>
+                <IconButton onClick={() => {setOpenEditTask(true); setEditTask(task)}}><EditIcon/></IconButton>
                 <IconButton onClick={() => deleteTask(task.id)}><DeleteIcon/></IconButton>
               </Stack>
             </Stack>

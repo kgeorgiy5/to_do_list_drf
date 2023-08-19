@@ -6,8 +6,25 @@ import { styled } from "@mui/material/styles";
 import { Stack, IconButton, Fab } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import EditIcon from "@mui/icons-material/Edit";
-
+import { useRef } from "react";
 export default function CreateTask({ open, setOpen, task }) {
+
+  const titleInputRef = useRef(null);
+  const descriptionInputRef = useRef(null);
+
+
+
+
+  const handleEditClick = () => {
+    const editedTitle = titleInputRef.current.value;
+    const editedDescription = descriptionInputRef.current.value;
+
+    const updatedTask = { ...task, title: editedTitle, description: editedDescription };
+    console.log(editedTitle, editedDescription)
+    setOpen(false);
+  };
+
+
   const style = {
     position: "absolute",
     top: "50%",
@@ -39,19 +56,21 @@ export default function CreateTask({ open, setOpen, task }) {
         <Box sx={style}>
           <Stack direction="row" justifyContent="space-between">
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Create task
+              Edit task
             </Typography>
             <IconButton onClick={handleClose}>
               <CloseIcon sx={{ color: "black" }} />
             </IconButton>
           </Stack>
           <CustomTextField
+            inputRef={titleInputRef}
             placeholder="Type your task title here..."
-            value={task.title}
+            defaultValue={task.title}
             variant="standard"
           />
           <CustomTextField
-            value={task.description}
+            inputRef={descriptionInputRef}
+            defaultValue={task.description}
             sx={{ mt: 3 }}
             fullWidth
             id="standard-multiline-flexible"
@@ -61,7 +80,8 @@ export default function CreateTask({ open, setOpen, task }) {
             variant="standard"
           />
           <Fab
-          variant="extended"
+            onClick={handleEditClick}
+            variant="extended"
             sx={{
               alignSelf: "center",
 
@@ -73,7 +93,7 @@ export default function CreateTask({ open, setOpen, task }) {
               },
             }}
           >
-            <EditIcon sx={{mr:1}}/>
+            <EditIcon sx={{ mr: 1 }} />
             Edit Task
           </Fab>
         </Box>

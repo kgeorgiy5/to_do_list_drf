@@ -6,8 +6,10 @@ import { styled } from "@mui/material/styles";
 import { Stack, IconButton, Fab } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import DoneIcon from "@mui/icons-material/Done";
+import axios from "axios";
+import { useRef } from "react";
 
-export default function CreateTask({ open, setOpen }) {
+export default function CreateTask({ open, setOpen, tasks }) {
   const style = {
     position: "absolute",
     top: "50%",
@@ -20,7 +22,23 @@ export default function CreateTask({ open, setOpen }) {
     borderRadius: 1,
   };
 
+  const titleInputRef = useRef(null);
+  const descriptionInputRef = useRef(null);
+
   const handleClose = () => setOpen(false);
+
+  const handleCreateClick = () => {
+
+    const editedTitle = titleInputRef.current.value;
+    const editedDescription = descriptionInputRef.current.value;
+
+    const createdTask = {title: editedTitle, description: editedDescription };
+    axios.post("http://localhost:8000/api/tasks-create/", createdTask)
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+    setOpen(false)
+
+  }
 
   const CustomTextField = styled(TextField)({
     "& .MuiInput-root::after": {
@@ -46,10 +64,12 @@ export default function CreateTask({ open, setOpen }) {
             </IconButton>
           </Stack>
           <CustomTextField
+            inputRef={titleInputRef}
             placeholder="Type your task title here..."
             variant="standard"
           />
           <CustomTextField
+            inputRef={descriptionInputRef}
             sx={{ mt: 3 }}
             fullWidth
             id="standard-multiline-flexible"
@@ -59,10 +79,10 @@ export default function CreateTask({ open, setOpen }) {
             variant="standard"
           />
           <Fab
+          onClick={handleCreateClick}
           variant="extended"
             sx={{
               alignSelf: "center",
-
               mt: 3,
               color: "black",
               bgcolor: "#c6ffb3",
