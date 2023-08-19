@@ -8,7 +8,17 @@ import formatDateTime from '../functions/formatDateTime';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { Stack, IconButton } from '@mui/material';
-export default function Task({ task, expanded, handleChange }){
+import axios from 'axios';
+
+
+export default function Task({ task, expanded, handleChange, setTasks }){
+
+    const deleteTask = (id) => {
+      setTasks(tasks => tasks.filter(task => task.id !== id))
+      axios.delete(`http://localhost:8000/api/tasks-delete/${id}/`)
+      .catch(err => console.log(err))
+    }
+ 
     return (
         <Accordion sx={{bgcolor:"inherit", boxShadow:"none"}} expanded={expanded === `task${task.id}`} onChange={handleChange(`task${task.id}`)}>
             <AccordionSummary
@@ -26,7 +36,7 @@ export default function Task({ task, expanded, handleChange }){
             <Stack direction="row" justifyContent="space-between">{task.description}
             <Stack direction="row">
                 <IconButton><EditIcon/></IconButton>
-                <IconButton><DeleteIcon/></IconButton>
+                <IconButton onClick={() => deleteTask(task.id)}><DeleteIcon/></IconButton>
             </Stack>
             </Stack>
             
