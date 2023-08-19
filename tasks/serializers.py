@@ -4,6 +4,17 @@ from rest_framework.renderers import JSONRenderer
 from .models import Task
 
 class Task_Serializer(serializers.ModelSerializer):
+    
+    def update(self, instance, validated_data):
+        
+        instance.title = validated_data.get('title', instance.title)
+        instance.description = validated_data.get('description', instance.description)
+        instance.is_completed = validated_data.get('is_completed', instance.is_completed)
+        instance.time_created = instance.time_created
+        
+        return instance
+    
+    
     class Meta:
         model = Task
         fields = [
