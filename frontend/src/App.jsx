@@ -5,11 +5,18 @@ import Tasks from "./components/Tasks";
 import { Grid, Typography, Fab, Stack } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add'
 import CreateTask from "./components/CreateTask";
+import EditTask from "./components/EditTask"
+
 function App() {
 
   const [tasks, setTasks] = useState([]);
+
+  const [editTask, setEditTask] = useState({})
+
   const [openCreateTask, setOpenCreateTask] = useState(false);
   const handleOpen = () => setOpenCreateTask(true);
+
+  const [openEditTask, setOpenEditTask] = useState(false)
 
 
   useEffect(() => {
@@ -21,6 +28,7 @@ function App() {
 
   return (
     <>
+    <EditTask task={editTask} open={openEditTask} setOpen={setOpenEditTask}/>
     <CreateTask open={openCreateTask} setOpen={setOpenCreateTask}/>
     <Stack direction="column">
       <Typography variant="h3" textAlign="center" sx={{mt:5}}>
@@ -41,7 +49,7 @@ function App() {
         justifyContent="flex-start"
         sx={{ minHeight: "100vh", mt: 5 }}
       >
-        <Tasks tasks={tasks} setTasks={setTasks}/>
+        <Tasks setEditTask={setEditTask} setOpenEditTask={setOpenEditTask} tasks={tasks} setTasks={setTasks}/>
       </Grid>
       
     </>

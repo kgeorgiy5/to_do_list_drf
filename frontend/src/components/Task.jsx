@@ -11,7 +11,7 @@ import { Stack, IconButton } from '@mui/material';
 import axios from 'axios';
 
 
-export default function Task({ task, expanded, handleChange, setTasks }){
+export default function Task({ task, expanded, handleChange, setTasks, setOpenEditTask, setEditTask }){
 
     const deleteTask = (id) => {
       setTasks(tasks => tasks.filter(task => task.id !== id))
@@ -34,10 +34,10 @@ export default function Task({ task, expanded, handleChange, setTasks }){
         <AccordionDetails>
           <Typography>
             <Stack direction="row" justifyContent="space-between">{task.description}
-            <Stack direction="row">
-                <IconButton><EditIcon /></IconButton>
+              <Stack direction="row">
+                <IconButton><EditIcon onClick={() => {setOpenEditTask(true); setEditTask(task)}}/></IconButton>
                 <IconButton onClick={() => deleteTask(task.id)}><DeleteIcon/></IconButton>
-            </Stack>
+              </Stack>
             </Stack>
             
           </Typography>
