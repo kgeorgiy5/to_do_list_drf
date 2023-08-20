@@ -108,7 +108,7 @@ export default function EditTask({ open, setOpen, task, setTasks }) {
             }}
           >
             <EditIcon sx={{ mr: 1 }} />
-            Edit Task
+            Save Edit
           </Fab>
         </Box>
       </Modal>

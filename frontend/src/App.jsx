@@ -6,12 +6,14 @@ import { Grid, Typography, Fab, Stack } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add'
 import CreateTask from "./components/CreateTask";
 import EditTask from "./components/EditTask"
-
+import VisibilityIcon from '@mui/icons-material/Visibility';
 function App() {
 
   const [tasks, setTasks] = useState([]);
 
   const [editTask, setEditTask] = useState({})
+
+  const [showCompleted, setShowCompleted] = useState(false)
 
   const [openCreateTask, setOpenCreateTask] = useState(false);
   const handleOpen = () => setOpenCreateTask(true);
@@ -34,12 +36,21 @@ function App() {
       <Typography variant="h3" textAlign="center" sx={{mt:5}}>
         Tasks
       </Typography>
-      <Fab onClick={handleOpen} sx={{width:"10%", alignSelf:"center", mt: 5, color:"black", bgcolor:"#b3c6ff", ":hover":{
-        bgcolor:"#b3c6ff"
-      }}} color="primary" aria-label="add" variant="extended">
-          <AddIcon />
-          Add task
-        </Fab>
+      
+      <Stack direction="row" alignSelf="center">
+        <Fab onClick={handleOpen} sx={{mr: 1, pl:5, pr:5, mt: 5, color:"black", bgcolor:"#b3c6ff", ":hover":{
+          bgcolor:"#b3c6ff"
+        }}} color="primary" aria-label="add" variant="extended">
+            <AddIcon />
+            Add task
+          </Fab>
+          <Fab onClick={() => {setShowCompleted(value => !value)}} sx={{ml: 1, mt: 5, color:"black", bgcolor:!showCompleted ? "#ffc6b3" : "#ecffb3", ":hover":{
+          bgcolor:!showCompleted ? "#ffc6b3" : "#ecffb3"
+        }}} color="primary" aria-label="add" variant="extended">
+            <VisibilityIcon sx={{mr: 1}}/>
+            View {showCompleted ? "uncompleted" : "completed"} 
+          </Fab>
+      </Stack>
         </Stack>
       <Grid
         container
@@ -49,7 +60,7 @@ function App() {
         justifyContent="flex-start"
         sx={{ minHeight: "100vh", mt: 5 }}
       >
-        <Tasks setEditTask={setEditTask} setOpenEditTask={setOpenEditTask} tasks={tasks} setTasks={setTasks}/>
+          <Tasks showCompleted={showCompleted} setEditTask={setEditTask} setOpenEditTask={setOpenEditTask} tasks={tasks} setTasks={setTasks}/>
       </Grid>
       
     </>
