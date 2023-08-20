@@ -34,8 +34,9 @@ export default function Task({ task, expanded, handleChange, setTasks, setOpenEd
         </AccordionSummary>
         <AccordionDetails>
           <Typography component="span">
-            <Stack direction="row" justifyContent="space-between">{task.description}
-              <Stack direction="row">
+            <Stack direction="row" justifyContent={`${task.description ? "space-between": "flex-end"}`}>
+              {task.description}
+              <Stack direction="row" sx={{alignSelf:"flex-end"}}>
                 <Tooltip title="Mark task complete">
                   <IconButton onClick={() => {setTasks(tasks => tasks.map(t => t === task ? t = {...t, is_complete: true} : t))}}><DoneIcon/></IconButton>
                 </Tooltip>
