@@ -12,7 +12,18 @@ from .serializers import Task_Serializer
 #get
 class Tasks_List(ListAPIView):
     queryset = Task.objects.all()
+    serializer_class = Task_Serializer 
+     
+#get unfinished tasks
+class Tasks_List_Unfinished(ListAPIView):
+    queryset = Task.objects.filter(is_completed=False)
+    serializer_class = Task_Serializer    
+    
+#get finished tasks
+class Tasks_List_Finished(ListAPIView):
+    queryset = Task.objects.filter(is_completed=True)
     serializer_class = Task_Serializer
+    
     
 #post
 class Tasks_Create(CreateAPIView):
