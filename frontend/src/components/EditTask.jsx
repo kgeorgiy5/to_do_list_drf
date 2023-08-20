@@ -10,7 +10,7 @@ import { useRef } from "react";
 import axios from "axios";
 
 
-export default function CreateTask({ open, setOpen, task }) {
+export default function EditTask({ open, setOpen, task, setTasks }) {
 
   const titleInputRef = useRef(null);
   const descriptionInputRef = useRef(null);
@@ -24,13 +24,15 @@ export default function CreateTask({ open, setOpen, task }) {
 
     const updatedTask = { ...task, title: editedTitle, description: editedDescription };
 
-    axios.put(`http://localhost:8000/api/tasks-update/${task.id}`, 
+    axios.put(`http://localhost:8000/api/tasks-update/${task.id}/`, 
     {    
              title: editedTitle,
              description: editedDescription,
              is_complete: false  
     })
-    .then(res => console.log(res))
+    .then(res => {
+      setTasks(tasks => tasks.map(t => t.id !== task.id ? t : res.data))
+    })
     .catch(err => console.log(err))
 
     setOpen(false);

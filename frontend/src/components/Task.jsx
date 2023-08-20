@@ -29,7 +29,7 @@ export default function Task({ task, expanded, handleChange, setTasks, setOpenEd
           <Typography variant='h6' fontWeight="400" sx={{ width: '33%', flexShrink: 0 }}>
             {task.title}
           </Typography>
-          <Typography sx={{ color: 'text.secondary' }}>Created at {formatDateTime(task.time_created)}</Typography>
+          <Typography sx={{ color: 'text.secondary' }}>{task.edited ? 'Edited at' : 'Created at'} {formatDateTime(task.time_edited)}</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography component="span">
